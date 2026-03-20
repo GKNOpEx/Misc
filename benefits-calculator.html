@@ -31,18 +31,15 @@
   }
 
   /* Intranet chrome */
-  .intranet-nav .logo {
+.intranet-nav .logo {
     height: 15px;
     width: auto;
     margin-right: auto;
-}
-  .intranet-nav .logo {
-    font-family: 'Arial', serif;
+    font-family: 'Arial', sans-serif;
     font-size: 1.4rem;
     letter-spacing: 0.02em;
     color: white;
-    margin-right: auto;
-  }
+}
   .intranet-nav a {
     color: rgba(255,255,255,0.65);
     text-decoration: none;
@@ -422,7 +419,10 @@
 
 <!-- Intranet nav chrome -->
 <nav class="intranet-nav">
-  <img src="https://github.com/LouisLlewellyn/Images/blob/main/GKN_Aero_white.png?raw=true" alt="Logo" class="logo"> 
+ <div class="logo">
+    <img src="https://github.com/LouisLlewellyn/Images/blob/main/GKN_Aero_white.png?raw=true" alt="Logo" style="height:28px; vertical-align:middle; margin-right:8px;">
+    | Filton Intranet
+</div>
   <a href="#">Home</a>
   <a href="#">News</a>
   <a href="#">People</a>
