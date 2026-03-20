@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Benefits Calculator — Business Tools</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #1a1a2e;
+    --ink-soft: #4a4a6a;
+    --ink-muted: #9090b0;
+    --surface: #f4f3f0;
+    --card: #ffffff;
+    --accent: #2d6a4f;
+    --accent-light: #d8f3dc;
+    --accent-mid: #74c69d;
+    --gold: #e9c46a;
+    --border: #e2e0da;
+    --shadow: 0 2px 16px rgba(26,26,46,0.08);
+    --shadow-lg: 0 8px 40px rgba(26,26,46,0.12);
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--surface);
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* Intranet chrome */
+  .intranet-nav {
+    background: var(--ink);
+    color: white;
+    padding: 0 2rem;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+  .intranet-nav .logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
+    color: white;
+    margin-right: auto;
+  }
+  .intranet-nav a {
+    color: rgba(255,255,255,0.65);
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .intranet-nav a:hover, .intranet-nav a.active { color: white; }
+  .intranet-nav a.active { color: var(--accent-mid); }
+
+  .intranet-sub {
+    background: white;
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .breadcrumb {
+    font-size: 0.78rem;
+    color: var(--ink-muted);
+  }
+  .breadcrumb span { color: var(--ink-soft); font-weight: 500; }
+
+  /* Main layout */
+  .page {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2.5rem 2rem 4rem;
+  }
+
+  .page-header {
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+  }
+  .page-header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2rem;
+    color: var(--ink);
+    line-height: 1.1;
+  }
+  .page-header p {
+    font-size: 0.88rem;
+    color: var(--ink-muted);
+    margin-top: 0.4rem;
+  }
+  .badge {
+    background: var(--accent-light);
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.75rem;
+    border-radius: 20px;
+  }
+
+  /* Calculator layout */
+  .calc-grid {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 1.5rem;
+    align-items: start;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+  }
+
+  .card-header {
+    padding: 1.5rem 1.75rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .card-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: var(--accent-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+  }
+  .card-header h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.15rem;
+    color: var(--ink);
+  }
+  .card-header p {
+    font-size: 0.78rem;
+    color: var(--ink-muted);
+    margin-top: 0.1rem;
+  }
+
+  .card-body { padding: 1.75rem; }
+
+  /* Form fields */
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+  }
+  .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+  .form-group.full { grid-column: 1 / -1; }
+
+  label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  input[type="number"], select {
+    height: 44px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    padding: 0 0.875rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.92rem;
+    color: var(--ink);
+    background: var(--surface);
+    transition: border-color 0.2s, box-shadow 0.2s;
+    appearance: none;
+    outline: none;
+  }
+  input[type="number"]:focus, select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(45,106,79,0.1);
+    background: white;
+  }
+  .input-prefix {
+    position: relative;
+  }
+  .input-prefix span {
+    position: absolute;
+    left: 0.875rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--ink-muted);
+    font-size: 0.9rem;
+    font-weight: 500;
+    pointer-events: none;
+  }
+  .input-prefix input { padding-left: 1.6rem; }
+
+  /* Slider */
+  .slider-group { display: flex; flex-direction: column; gap: 0.5rem; }
+  .slider-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .slider-value {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-light);
+    padding: 0.15rem 0.6rem;
+    border-radius: 6px;
+  }
+  input[type="range"] {
+    width: 100%;
+    height: 5px;
+    border-radius: 10px;
+    background: var(--border);
+    outline: none;
+    appearance: none;
+    cursor: pointer;
+    accent-color: var(--accent);
+  }
+
+  /* Section divider */
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+    margin: 1.5rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px dashed var(--border);
+  }
+
+  /* Checkboxes */
+  .checkbox-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.625rem;
+  }
+  .checkbox-item {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.625rem 0.875rem;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--surface);
+  }
+  .checkbox-item:hover { border-color: var(--accent-mid); background: white; }
+  .checkbox-item.checked {
+    border-color: var(--accent);
+    background: var(--accent-light);
+  }
+  .checkbox-item input { display: none; }
+  .check-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 5px;
+    border: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s;
+    font-size: 0.65rem;
+    color: transparent;
+  }
+  .checkbox-item.checked .check-dot {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+  }
+  .checkbox-item span {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+  }
+  .checkbox-item.checked span { color: var(--accent); }
+
+  /* Results panel */
+  .results-card {
+    position: sticky;
+    top: 1.5rem;
+  }
+
+  .result-total {
+    background: var(--ink);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  .result-total .label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-mid);
+    margin-bottom: 0.4rem;
+  }
+  .result-total .amount {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.6rem;
+    color: white;
+    line-height: 1;
+  }
+  .result-total .period {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.4);
+    margin-top: 0.3rem;
+  }
+
+  .result-rows { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
+  .result-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border-radius: 10px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    transition: all 0.3s;
+  }
+  .result-row.active {
+    background: var(--accent-light);
+    border-color: var(--accent-mid);
+  }
+  .result-row .row-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.83rem;
+    color: var(--ink-soft);
+    font-weight: 500;
+  }
+  .result-row .row-icon { font-size: 0.9rem; }
+  .result-row .row-value {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .result-row.active .row-value { color: var(--accent); }
+  .result-row .row-value.muted {
+    color: var(--ink-muted);
+    font-weight: 400;
+    font-size: 0.78rem;
+  }
+
+  .employer-note {
+    background: linear-gradient(135deg, var(--gold) 0%, #f4a261 100%);
+    border-radius: 10px;
+    padding: 0.875rem 1rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.625rem;
+  }
+  .employer-note .note-icon { font-size: 1rem; flex-shrink: 0; margin-top: 0.1rem; }
+  .employer-note p {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+  .employer-note strong { font-weight: 700; }
+
+  .calc-btn {
+    width: 100%;
+    height: 48px;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  .calc-btn:hover {
+    background: #1e4d38;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(45,106,79,0.3);
+  }
+  .calc-btn:active { transform: translateY(0); }
+
+  .disclaimer {
+    font-size: 0.72rem;
+    color: var(--ink-muted);
+    text-align: center;
+    margin-top: 1rem;
+    line-height: 1.5;
+  }
+
+  /* Animate values */
+  .result-row, .result-total .amount {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @media (max-width: 800px) {
+    .calc-grid { grid-template-columns: 1fr; }
+    .form-grid { grid-template-columns: 1fr; }
+    .results-card { position: static; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Intranet nav chrome -->
+<nav class="intranet-nav">
+  <div class="logo">Acme Co. Intranet</div>
+  <a href="#">Home</a>
+  <a href="#">News</a>
+  <a href="#">People</a>
+  <a href="#" class="active">Business Tools</a>
+  <a href="#">IT Help</a>
+</nav>
+<div class="intranet-sub">
+  <span class="breadcrumb">Business Tools › <span>Benefits Calculator</span></span>
+</div>
+
+<!-- Page -->
+<div class="page">
+  <div class="page-header">
+    <div>
+      <h1>Benefits Calculator</h1>
+      <p>Estimate your total compensation package including salary, pension, and benefits</p>
+    </div>
+    <span class="badge">2025/26 Rates</span>
+  </div>
+
+  <div class="calc-grid">
+
+    <!-- Inputs -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-icon">💼</div>
+        <div>
+          <h2>Your Details</h2>
+          <p>Enter your information to calculate your package</p>
+        </div>
+      </div>
+      <div class="card-body">
+
+        <div class="form-grid">
+          <div class="form-group full">
+            <label>Annual Salary</label>
+            <div class="input-prefix">
+              <span>£</span>
+              <input type="number" id="salary" value="35000" min="0" max="500000" step="500" oninput="calculate()">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label>Employment Type</label>
+            <select id="empType" onchange="calculate()">
+              <option value="full">Full Time</option>
+              <option value="part">Part Time</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Years of Service</label>
+            <select id="years" onchange="calculate()">
+              <option value="0">Under 1 year</option>
+              <option value="1">1–2 years</option>
+              <option value="3" selected>3–5 years</option>
+              <option value="6">6–10 years</option>
+              <option value="11">11+ years</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="section-label">Pension Contribution</div>
+        <div class="slider-group">
+          <div class="slider-label-row">
+            <label>Your contribution rate</label>
+            <span class="slider-value" id="pensionLabel">5%</span>
+          </div>
+          <input type="range" id="pension" min="3" max="15" value="5" step="1" oninput="updatePension(); calculate()">
+        </div>
+
+        <div class="section-label">Additional Benefits</div>
+        <div class="checkbox-grid" id="benefitsGrid">
+          <label class="checkbox-item checked" onclick="toggleBenefit(this)">
+            <input type="checkbox" checked>
+            <div class="check-dot">✓</div>
+            <span>Private Healthcare</span>
+          </label>
+          <label class="checkbox-item checked" onclick="toggleBenefit(this)">
+            <input type="checkbox" checked>
+            <div class="check-dot">✓</div>
+            <span>Life Assurance</span>
+          </label>
+          <label class="checkbox-item" onclick="toggleBenefit(this)">
+            <input type="checkbox">
+            <div class="check-dot">✓</div>
+            <span>Dental Cover</span>
+          </label>
+          <label class="checkbox-item checked" onclick="toggleBenefit(this)">
+            <input type="checkbox" checked>
+            <div class="check-dot">✓</div>
+            <span>Cycle to Work</span>
+          </label>
+          <label class="checkbox-item" onclick="toggleBenefit(this)">
+            <input type="checkbox">
+            <div class="check-dot">✓</div>
+            <span>Gym Membership</span>
+          </label>
+          <label class="checkbox-item checked" onclick="toggleBenefit(this)">
+            <input type="checkbox" checked>
+            <div class="check-dot">✓</div>
+            <span>25 Days Holiday</span>
+          </label>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="card results-card">
+      <div class="card-header">
+        <div class="card-icon">📊</div>
+        <div>
+          <h2>Your Package</h2>
+          <p>Total estimated value</p>
+        </div>
+      </div>
+      <div class="card-body">
+
+        <div class="result-total">
+          <div class="label">Total Package Value</div>
+          <div class="amount" id="totalAmount">£0</div>
+          <div class="period">per year</div>
+        </div>
+
+        <div class="result-rows">
+          <div class="result-row active">
+            <div class="row-label"><span class="row-icon">💰</span> Base Salary</div>
+            <div class="row-value" id="salaryOut">£0</div>
+          </div>
+          <div class="result-row" id="pensionRow">
+            <div class="row-label"><span class="row-icon">🏦</span> Employer Pension</div>
+            <div class="row-value" id="pensionOut">£0</div>
+          </div>
+          <div class="result-row" id="healthRow">
+            <div class="row-label"><span class="row-icon">🏥</span> Private Healthcare</div>
+            <div class="row-value" id="healthOut">—</div>
+          </div>
+          <div class="result-row" id="lifeRow">
+            <div class="row-label"><span class="row-icon">🛡️</span> Life Assurance</div>
+            <div class="row-value" id="lifeOut">—</div>
+          </div>
+          <div class="result-row" id="dentalRow">
+            <div class="row-label"><span class="row-icon">😁</span> Dental Cover</div>
+            <div class="row-value" id="dentalOut">—</div>
+          </div>
+          <div class="result-row" id="gymRow">
+            <div class="row-label"><span class="row-icon">🏋️</span> Gym Membership</div>
+            <div class="row-value" id="gymOut">—</div>
+          </div>
+        </div>
+
+        <div class="employer-note">
+          <span class="note-icon">💡</span>
+          <p>Employer pension contribution: <strong id="employerPensionNote">£0</strong>/yr — that's money on top of your salary added directly to your pension.</p>
+        </div>
+
+        <p class="disclaimer">Figures are indicative estimates based on standard company rates. Speak to HR for your exact entitlements.</p>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function fmt(n) {
+    return '£' + Math.round(n).toLocaleString('en-GB');
+  }
+
+  function updatePension() {
+    document.getElementById('pensionLabel').textContent = document.getElementById('pension').value + '%';
+  }
+
+  function toggleBenefit(el) {
+    el.classList.toggle('checked');
+    const cb = el.querySelector('input');
+    cb.checked = !cb.checked;
+    calculate();
+  }
+
+  function isChecked(text) {
+    const items = document.querySelectorAll('.checkbox-item');
+    for (const item of items) {
+      if (item.querySelector('span').textContent === text && item.classList.contains('checked')) return true;
+    }
+    return false;
+  }
+
+  function setRow(id, value, active) {
+    const row = document.getElementById(id);
+    if (active) {
+      row.classList.add('active');
+      row.querySelector('.row-value').textContent = fmt(value);
+      row.querySelector('.row-value').classList.remove('muted');
+    } else {
+      row.classList.remove('active');
+      row.querySelector('.row-value').textContent = '—';
+      row.querySelector('.row-value').classList.add('muted');
+    }
+  }
+
+  function calculate() {
+    const salary = parseFloat(document.getElementById('salary').value) || 0;
+    const pensionRate = parseInt(document.getElementById('pension').value) / 100;
+    const years = parseInt(document.getElementById('years').value);
+
+    // Employer pension matches up to a cap, increases with service
+    const employerRate = years >= 6 ? 0.07 : years >= 3 ? 0.06 : 0.05;
+    const employerPension = salary * employerRate;
+    const employeePension = salary * pensionRate;
+
+    // Benefit values
+    const healthVal = 1800;
+    const lifeVal = salary * 0.004; // 4x notional cost
+    const dentalVal = 420;
+    const gymVal = 600;
+
+    const healthOn = isChecked('Private Healthcare');
+    const lifeOn = isChecked('Life Assurance');
+    const dentalOn = isChecked('Dental Cover');
+    const gymOn = isChecked('Gym Membership');
+
+    let total = salary + employerPension;
+    if (healthOn) total += healthVal;
+    if (lifeOn) total += lifeVal;
+    if (dentalOn) total += dentalVal;
+    if (gymOn) total += gymVal;
+
+    document.getElementById('totalAmount').textContent = fmt(total);
+    document.getElementById('salaryOut').textContent = fmt(salary);
+    document.getElementById('pensionOut').textContent = fmt(employerPension);
+    document.getElementById('employerPensionNote').textContent = fmt(employerPension);
+
+    setRow('pensionRow', employerPension, true);
+    setRow('healthRow', healthVal, healthOn);
+    setRow('lifeRow', lifeVal, lifeOn);
+    setRow('dentalRow', dentalVal, dentalOn);
+    setRow('gymRow', gymVal, gymOn);
+  }
+
+  calculate();
+</script>
+</body>
+</html>
