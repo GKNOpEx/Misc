@@ -246,54 +246,6 @@
     border-bottom: 1px dashed var(--border);
   }
 
-  /* Checkboxes */
-  .checkbox-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.625rem;
-  }
-  .checkbox-item {
-    display: flex;
-    align-items: center;
-    gap: 0.625rem;
-    padding: 0.625rem 0.875rem;
-    border: 1.5px solid var(--border);
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all 0.2s;
-    background: var(--surface);
-  }
-  .checkbox-item:hover { border-color: var(--accent-mid); background: white; }
-  .checkbox-item.checked {
-    border-color: var(--accent);
-    background: var(--accent-light);
-  }
-  .checkbox-item input { display: none; }
-  .check-dot {
-    width: 18px;
-    height: 18px;
-    border-radius: 5px;
-    border: 2px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    transition: all 0.2s;
-    font-size: 0.65rem;
-    color: transparent;
-  }
-  .checkbox-item.checked .check-dot {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: white;
-  }
-  .checkbox-item span {
-    font-size: 0.82rem;
-    font-weight: 500;
-    color: var(--ink-soft);
-  }
-  .checkbox-item.checked span { color: var(--accent); }
-
   /* Results panel */
   .results-card {
     position: sticky;
@@ -406,14 +358,6 @@
   }
   .calc-btn:active { transform: translateY(0); }
 
-  .disclaimer {
-    font-size: 0.72rem;
-    color: var(--ink-muted);
-    text-align: center;
-    margin-top: 1rem;
-    line-height: 1.5;
-  }
-
   /* Animate values */
   .result-row, .result-total .amount {
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -505,41 +449,6 @@
           </div>
           <input type="range" id="pension" min="3" max="15" value="5" step="1" oninput="updatePension(); calculate()">
         </div>
-
-        <div class="section-label">Additional Benefits</div>
-        <div class="checkbox-grid" id="benefitsGrid">
-          <label class="checkbox-item checked" onclick="toggleBenefit(this)">
-            <input type="checkbox" checked>
-            <div class="check-dot">✓</div>
-            <span>Private Healthcare</span>
-          </label>
-          <label class="checkbox-item checked" onclick="toggleBenefit(this)">
-            <input type="checkbox" checked>
-            <div class="check-dot">✓</div>
-            <span>Life Assurance</span>
-          </label>
-          <label class="checkbox-item" onclick="toggleBenefit(this)">
-            <input type="checkbox">
-            <div class="check-dot">✓</div>
-            <span>Dental Cover</span>
-          </label>
-          <label class="checkbox-item checked" onclick="toggleBenefit(this)">
-            <input type="checkbox" checked>
-            <div class="check-dot">✓</div>
-            <span>Cycle to Work</span>
-          </label>
-          <label class="checkbox-item" onclick="toggleBenefit(this)">
-            <input type="checkbox">
-            <div class="check-dot">✓</div>
-            <span>Gym Membership</span>
-          </label>
-          <label class="checkbox-item checked" onclick="toggleBenefit(this)">
-            <input type="checkbox" checked>
-            <div class="check-dot">✓</div>
-            <span>25 Days Holiday</span>
-          </label>
-        </div>
-
       </div>
     </div>
 
@@ -568,14 +477,6 @@
           <div class="result-row" id="pensionRow">
             <div class="row-label"><span class="row-icon">🏦</span> Employer Pension</div>
             <div class="row-value" id="pensionOut">£0</div>
-          </div>
-          <div class="result-row" id="healthRow">
-            <div class="row-label"><span class="row-icon">🏥</span> Private Healthcare</div>
-            <div class="row-value" id="healthOut">—</div>
-          </div>
-          <div class="result-row" id="lifeRow">
-            <div class="row-label"><span class="row-icon">🛡️</span> Life Assurance</div>
-            <div class="row-value" id="lifeOut">—</div>
           </div>
         </div>
 
