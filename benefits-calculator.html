@@ -45,7 +45,7 @@
     background: var(--ink);
     color: white;
     padding: 0 2rem;
-    height: 52px;
+    height: 80px;
     display: flex;
     align-items: center;
     gap: 2rem;
@@ -71,6 +71,9 @@
     align-items: center;
     gap: 0.5rem;
   }
+  .intranet-sub img:hover {
+    animation: pulse 0.6s ease-in-out;
+  }
   .breadcrumb {
     font-size: 0.78rem;
     color: var(--ink-muted);
@@ -87,8 +90,8 @@
   /* Page header */
   .page-header {
     display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 0.5rem;
     margin: 1.3rem 0 1.25rem;
   }
   .page-header h1 {
@@ -111,7 +114,12 @@
     text-transform: uppercase;
     padding: 0.3rem 0.75rem;
     border-radius: 20px;
-    display: inline-block;
+    display: block;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: 404px;
+    margin-top: -2.6rem;
+    margin-bottom: 1rem;
   }
 
   /* Result total block inside results card */
@@ -121,6 +129,10 @@
     padding: 1.5rem;
     margin-bottom: 1rem;
     text-align: center;
+    transition: box-shadow 0.3s ease;
+  }
+  .result-total:hover {
+    box-shadow: 0 0 20px 4px rgba(245, 197, 24, 0.3);
   }
   .result-total-label {
     font-size: 0.72rem;
@@ -148,6 +160,15 @@
     grid-template-columns: 1fr 380px;
     gap: 1.5rem;
     align-items: stretch;
+    position: relative;
+  }
+  .calc-grid::before {
+    content: '';
+    position: absolute;
+    top: -1.8rem;
+    left: 0;
+    right: 50%;
+    height: 0;
   }
 
   .card {
@@ -282,8 +303,7 @@
 
   /* Results panel */
   .results-card {
-    position: sticky;
-    top: 1.5rem;
+    margin-top: -4.7rem;
   }
 
   .result-rows { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
@@ -352,10 +372,42 @@
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+  }
+
+  @keyframes glow {
+    0%, 100% { 
+      box-shadow: 0 0 0 0 rgba(245, 197, 24, 0.4);
+      filter: brightness(1);
+    }
+    50% { 
+      box-shadow: 0 0 12px 4px rgba(245, 197, 24, 0.6);
+      filter: brightness(1.1);
+    }
+  }
+
+  .card-icon:hover, .row-icon:hover {
+    animation: pulse 0.6s ease-in-out;
+  }
+
   @media (max-width: 800px) {
-    .calc-grid { grid-template-columns: 1fr; }
+    .page { padding: 0 1rem 2rem; }
+    .intranet-nav { padding: 0 1rem; height: 60px; flex-wrap: wrap; font-size: 0.7rem; }
+    .intranet-nav a { font-size: 0.65rem; }
+    .page-header { margin: 1rem 0 0.75rem; }
+    .page-header h1 { font-size: 1rem; }
+    .page-header p { font-size: 0.75rem; }
+    .badge { font-size: 0.65rem; padding: 0.25rem 0.6rem; margin-right: 410px; margin-top: -2rem; margin-bottom: 0.75rem; }
+    .calc-grid { grid-template-columns: 1fr; margin-top: -0.5rem; }
     .form-grid { grid-template-columns: 1fr; }
-    .results-card { position: static; }
+    .results-card { margin-top: 0 !important; }
+    .card-header { padding: 1rem 1.25rem 0.85rem; }
+    .card-header h2 { font-size: 0.95rem; }
+    .card-body { padding: 1.25rem; }
+    .intranet-sub img { display: none; }
+    .intranet-sub { height: 40px; padding: 0 1rem; }
   }
 </style>
 </head>
@@ -376,17 +428,19 @@
 </nav>
 <div class="intranet-sub">
   <span class="breadcrumb">Business Tools › <span>Benefits Calculator</span></span>
+  <img src="https://github.com/GKNOpEx/Pictures/blob/main/OpEx%20Logo%20Blue.png?raw=true" alt="OpEx Logo" style="height: 36px; margin-left: auto; margin-right: -15px;">
 </div>
 
 <!-- Page -->
 <div class="page">
   <div class="page-header">
-    <div>
-      <h1>Benefits Calculator</h1>
+    <h1>Benefits Calculator</h1>
+    <div style="display: flex; align-items: center; justify-content: space-between;">
       <p>Calculate your project's benefit to the business</p>
     </div>
-    <span class="badge">2025/26 Rates</span>
   </div>
+
+  <span class="badge">2025/26 Rates</span>
 
   <div class="calc-grid">
 
