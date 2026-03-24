@@ -16,10 +16,8 @@
     --accent: #f5c518;
     --accent-light: rgba(30, 45, 79, 0.1);
     --accent-mid: #f5c518;
-    --gold: #f5c518;
     --border: #e2e0da;
     --shadow: 0 2px 16px rgba(26,26,46,0.08);
-    --shadow-lg: 0 8px 40px rgba(26,26,46,0.12);
   }
 
   body {
@@ -43,7 +41,6 @@
     margin-bottom: 1rem;
   }
 
-  /* Calculator layout */
   .calc-grid {
     display: grid;
     grid-template-columns: 1fr 380px;
@@ -78,27 +75,12 @@
     font-size: 1rem;
     flex-shrink: 0;
   }
-  .card-header h2 {
-    font-size: 1.15rem;
-    color: var(--ink);
-  }
-  .card-header p {
-    font-size: 0.78rem;
-    color: var(--ink-muted);
-    margin-top: 0.1rem;
-  }
+  .card-header h2 { font-size: 1.15rem; color: var(--ink); }
+  .card-header p { font-size: 0.78rem; color: var(--ink-muted); margin-top: 0.1rem; }
 
-  .card-body {
-    padding: 1.75rem;
-    flex: 1;
-  }
+  .card-body { padding: 1.75rem; flex: 1; }
 
-  /* Form fields */
-  .form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.25rem;
-  }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; }
   .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
 
   label {
@@ -128,9 +110,7 @@
     box-shadow: 0 0 0 3px rgba(245,197,24,0.15);
     background: white;
   }
-  .input-prefix {
-    position: relative;
-  }
+  .input-prefix { position: relative; }
   .input-prefix span {
     position: absolute;
     left: 0.875rem;
@@ -143,13 +123,8 @@
   }
   .input-prefix input { padding-left: 2.8rem; }
 
-  /* Slider */
   .slider-group { display: flex; flex-direction: column; gap: 0.5rem; }
-  .slider-label-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+  .slider-label-row { display: flex; justify-content: space-between; align-items: center; }
   .slider-value {
     font-size: 0.92rem;
     font-weight: 600;
@@ -180,7 +155,6 @@
     border-bottom: 1px dashed var(--border);
   }
 
-  /* Results panel */
   .result-total {
     background: var(--ink);
     border-radius: 12px;
@@ -189,9 +163,7 @@
     text-align: center;
     transition: box-shadow 0.3s ease;
   }
-  .result-total:hover {
-    box-shadow: 0 0 20px 4px rgba(245, 197, 24, 0.3);
-  }
+  .result-total:hover { box-shadow: 0 0 20px 4px rgba(245, 197, 24, 0.3); }
   .result-total-label {
     font-size: 0.72rem;
     font-weight: 600;
@@ -200,17 +172,8 @@
     color: var(--accent-mid);
     margin-bottom: 0.4rem;
   }
-  .result-total-amount {
-    font-size: 2.6rem;
-    font-weight: 700;
-    color: white;
-    line-height: 1;
-  }
-  .result-total-period {
-    font-size: 0.78rem;
-    color: rgba(255,255,255,0.4);
-    margin-top: 0.3rem;
-  }
+  .result-total-amount { font-size: 2.6rem; font-weight: 700; color: white; line-height: 1; }
+  .result-total-period { font-size: 0.78rem; color: rgba(255,255,255,0.4); margin-top: 0.3rem; }
 
   .result-rows { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
   .result-row {
@@ -223,10 +186,7 @@
     border: 1px solid var(--border);
     transition: all 0.3s;
   }
-  .result-row.active {
-    background: var(--accent-light);
-    border-color: var(--accent-mid);
-  }
+  .result-row.active { background: var(--accent-light); border-color: var(--accent-mid); }
   .result-row .row-label {
     display: flex;
     align-items: center;
@@ -236,11 +196,7 @@
     font-weight: 500;
   }
   .result-row .row-icon { font-size: 0.9rem; }
-  .result-row .row-value {
-    font-size: 0.88rem;
-    font-weight: 700;
-    color: var(--ink);
-  }
+  .result-row .row-value { font-size: 0.88rem; font-weight: 700; color: var(--ink); }
 
   .disclaimer {
     font-size: 0.72rem;
@@ -250,7 +206,7 @@
     line-height: 1.5;
   }
 
-   @media (max-width: 800px) {
+  @media (max-width: 800px) {
     body { padding: 1rem; }
     .calc-grid { grid-template-columns: 1fr; }
     .form-grid { grid-template-columns: 1fr; }
@@ -263,7 +219,6 @@
 
   <div class="calc-grid">
 
-    <!-- Inputs -->
     <div class="card">
       <div class="card-header">
         <div class="card-icon">💼</div>
@@ -274,7 +229,6 @@
       </div>
       <div class="card-body">
         <div class="form-grid">
-
           <div class="form-group">
             <label>Attended Hours Saved</label>
             <div class="input-prefix">
@@ -282,7 +236,6 @@
               <input type="number" id="attendedHours" value="100" min="0" max="5000" step="50" oninput="calculate()">
             </div>
           </div>
-
           <div class="form-group">
             <label>Earned Hours Gained</label>
             <div class="input-prefix">
@@ -290,7 +243,6 @@
               <input type="number" id="earnedHours" value="100" min="0" max="5000" step="50" oninput="calculate()">
             </div>
           </div>
-
           <div class="form-group">
             <label>Benefit Type</label>
             <select id="empType" onchange="calculate()">
@@ -298,7 +250,6 @@
               <option value="part">Benefit 2</option>
             </select>
           </div>
-
           <div class="form-group">
             <label>Duration of Project</label>
             <select id="years" onchange="calculate()">
@@ -309,7 +260,6 @@
               <option value="11">11+ Weeks</option>
             </select>
           </div>
-
         </div>
 
         <div class="section-label">Variable Contribution</div>
@@ -323,7 +273,6 @@
       </div>
     </div>
 
-    <!-- Results -->
     <div class="card">
       <div class="card-header">
         <div class="card-icon">📊</div>
@@ -338,7 +287,6 @@
           <div class="result-total-amount" id="bannerTotal">£0</div>
           <div class="result-total-period">estimated value</div>
         </div>
-
         <div class="result-rows">
           <div class="result-row active">
             <div class="row-label"><span class="row-icon">⏱️</span> Attended Hours</div>
@@ -353,7 +301,6 @@
             <div class="row-value" id="rateOut">5%</div>
           </div>
         </div>
-
         <p class="disclaimer">Figures are indicative estimates. Speak to your project lead for exact valuations.</p>
       </div>
     </div>
@@ -361,35 +308,25 @@
   </div>
 
 <script>
-  function fmt(n) {
-    return '£' + Math.round(n).toLocaleString('en-GB');
-  }
-
+  function fmt(n) { return '£' + Math.round(n).toLocaleString('en-GB'); }
   function updatePension() {
     const val = document.getElementById('pension').value;
     document.getElementById('pensionLabel').textContent = val + '%';
     document.getElementById('rateOut').textContent = val + '%';
   }
-
   function calculate() {
     const attended = parseFloat(document.getElementById('attendedHours').value) || 0;
     const earned   = parseFloat(document.getElementById('earnedHours').value) || 0;
     const rate     = parseInt(document.getElementById('pension').value) / 100;
     const years    = parseInt(document.getElementById('years').value);
-
     const durationMultiplier = years >= 6 ? 1.3 : years >= 3 ? 1.15 : 1.0;
-    const maxHours = 5000;
-    const attendedSaving = maxHours - attended;
-    const totalHours = attendedSaving + earned;
-    const hourlyRate = 35;
-    const total = totalHours * hourlyRate * (1 + rate) * durationMultiplier;
-
+    const total = (5000 - attended + earned) * 35 * (1 + rate) * durationMultiplier;
     document.getElementById('bannerTotal').textContent = fmt(total);
     document.getElementById('attendedOut').textContent = attended.toLocaleString('en-GB') + ' hrs';
     document.getElementById('earnedOut').textContent = earned.toLocaleString('en-GB') + ' hrs';
     document.getElementById('rateOut').textContent = (rate * 100) + '%';
   }
-
+  calculate();
 </script>
 
 </body>
