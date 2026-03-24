@@ -7,7 +7,7 @@
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-:root {
+  :root {
     --ink: #1e2d4f;
     --ink-soft: #4a4a6a;
     --ink-muted: #9090b0;
@@ -20,91 +20,16 @@
     --border: #e2e0da;
     --shadow: 0 2px 16px rgba(26,26,46,0.08);
     --shadow-lg: 0 8px 40px rgba(26,26,46,0.12);
-}
+  }
 
   body {
     font-family: 'Arial', sans-serif;
     background: var(--surface);
     color: var(--ink);
     min-height: 100vh;
+    padding: 1.5rem;
   }
 
-  /* Intranet chrome */
-  .intranet-nav .logo {
-    height: 15px;
-    width: auto;
-    margin-right: auto;
-    display: flex;
-    align-items: center;
-    font-family: 'Arial', sans-serif;
-    font-size: 1.4rem;
-    letter-spacing: 0.02em;
-    color: white;
-  }
-  .intranet-nav {
-    background: var(--ink);
-    color: white;
-    padding: 0 2rem;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-  }
-  .intranet-nav a {
-    color: rgba(255,255,255,0.65);
-    text-decoration: none;
-    font-size: 0.8rem;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    transition: color 0.2s;
-  }
-  .intranet-nav a:hover, .intranet-nav a.active { color: white; }
-  .intranet-nav a.active { color: var(--accent-mid); }
-
-  .intranet-sub {
-    background: white;
-    border-bottom: 1px solid var(--border);
-    padding: 0 2rem;
-    height: 44px;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .intranet-sub img:hover {
-    animation: pulse 0.6s ease-in-out;
-  }
-  .breadcrumb {
-    font-size: 0.78rem;
-    color: var(--ink-muted);
-  }
-  .breadcrumb span { color: var(--ink-soft); font-weight: 500; }
-
-  /* Main layout */
-  .page {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 2rem 4rem;
-  }
-
-  /* Page header */
-  .page-header {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    margin: 1.3rem 0 1.25rem;
-  }
-  .page-header h1 {
-    font-family: 'Arial', sans-serif;
-    font-size: 1.2rem;
-    color: var(--ink);
-    line-height: 1.1;
-  }
-  .page-header p {
-    font-size: 0.88rem;
-    color: var(--ink-muted);
-    margin-top: 0.4rem;
-  }
   .badge {
     background: var(--accent);
     color: var(--ink);
@@ -114,61 +39,16 @@
     text-transform: uppercase;
     padding: 0.3rem 0.75rem;
     border-radius: 6px;
-    display: block;
-    width: fit-content;
-    margin-left: auto;
-    margin-right: 404px;
-    margin-top: -2.6rem;
+    display: inline-block;
     margin-bottom: 1rem;
   }
 
-  /* Result total block inside results card */
-  .result-total {
-    background: var(--ink);
-    border-radius: 12px;
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-    text-align: center;
-    transition: box-shadow 0.3s ease;
-  }
-  .result-total:hover {
-    box-shadow: 0 0 20px 4px rgba(245, 197, 24, 0.3);
-  }
-  .result-total-label {
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--accent-mid);
-    margin-bottom: 0.4rem;
-  }
-  .result-total-amount {
-    font-size: 2.6rem;
-    font-weight: 700;
-    color: white;
-    line-height: 1;
-  }
-  .result-total-period {
-    font-size: 0.78rem;
-    color: rgba(255,255,255,0.4);
-    margin-top: 0.3rem;
-  }
-
-  /* Calculator layout — equal height cards */
+  /* Calculator layout */
   .calc-grid {
     display: grid;
     grid-template-columns: 1fr 380px;
     gap: 1.5rem;
     align-items: stretch;
-    position: relative;
-  }
-  .calc-grid::before {
-    content: '';
-    position: absolute;
-    top: -1.8rem;
-    left: 0;
-    right: 50%;
-    height: 0;
   }
 
   .card {
@@ -196,9 +76,9 @@
     align-items: center;
     justify-content: center;
     font-size: 1rem;
+    flex-shrink: 0;
   }
   .card-header h2 {
-    font-family: 'Arial', sans-serif;
     font-size: 1.15rem;
     color: var(--ink);
   }
@@ -220,7 +100,6 @@
     gap: 1.25rem;
   }
   .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
-  .form-group.full { grid-column: 1 / -1; }
 
   label {
     font-size: 0.78rem;
@@ -242,6 +121,7 @@
     transition: border-color 0.2s, box-shadow 0.2s;
     appearance: none;
     outline: none;
+    width: 100%;
   }
   input[type="number"]:focus, select:focus {
     border-color: var(--accent);
@@ -289,7 +169,6 @@
     accent-color: var(--accent);
   }
 
-  /* Section divider */
   .section-label {
     font-size: 0.72rem;
     font-weight: 700;
@@ -302,8 +181,35 @@
   }
 
   /* Results panel */
-  .results-card {
-    margin-top: -4.7rem;
+  .result-total {
+    background: var(--ink);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    text-align: center;
+    transition: box-shadow 0.3s ease;
+  }
+  .result-total:hover {
+    box-shadow: 0 0 20px 4px rgba(245, 197, 24, 0.3);
+  }
+  .result-total-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-mid);
+    margin-bottom: 0.4rem;
+  }
+  .result-total-amount {
+    font-size: 2.6rem;
+    font-weight: 700;
+    color: white;
+    line-height: 1;
+  }
+  .result-total-period {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.4);
+    margin-top: 0.3rem;
   }
 
   .result-rows { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 1rem; }
@@ -335,29 +241,6 @@
     font-weight: 700;
     color: var(--ink);
   }
-  .result-row.active .row-value { color: var(--ink); }
-  .result-row .row-value.muted {
-    color: var(--ink-muted);
-    font-weight: 400;
-    font-size: 0.78rem;
-  }
-
-  .employer-note {
-    background: linear-gradient(135deg, var(--gold) 0%, #f4c842 100%);
-    border-radius: 10px;
-    padding: 0.875rem 1rem;
-    display: flex;
-    align-items: flex-start;
-    gap: 0.625rem;
-  }
-  .employer-note .note-icon { font-size: 1rem; flex-shrink: 0; margin-top: 0.1rem; }
-  .employer-note p {
-    font-size: 0.78rem;
-    font-weight: 500;
-    color: var(--ink);
-    line-height: 1.5;
-  }
-  .employer-note strong { font-weight: 700; }
 
   .disclaimer {
     font-size: 0.72rem;
@@ -367,227 +250,149 @@
     line-height: 1.5;
   }
 
-  /* Animate values */
-  .result-row, .result-total .amount {
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Chatbot styles */
+  .chat-widget {
+    overflow: visible;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 350px;
+    height: 500px;
+    background: white;
+    border-radius: 10px;
+    display: none;
+    flex-direction: column;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15), 0 0 18px rgba(245, 197, 24, 0.35);
   }
-
-  @keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.15); }
+  .chat-header {
+    background: var(--ink);
+    color: white;
+    padding: 15px;
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
-
-  @keyframes glow {
-    0%, 100% { 
-      box-shadow: 0 0 0 0 rgba(245, 197, 24, 0.4);
-      filter: brightness(1);
-    }
-    50% { 
-      box-shadow: 0 0 12px 4px rgba(245, 197, 24, 0.6);
-      filter: brightness(1.1);
-    }
+  .chat-header h3 { margin: 0; font-size: 16px; }
+  .chat-close { cursor: pointer; font-size: 20px; }
+  .chat-messages {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    background: var(--surface);
   }
-
-  .card-icon:hover, .row-icon:hover {
-    animation: pulse 0.6s ease-in-out;
+  .chat-message {
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+  }
+  .chat-message.user {
+    background: var(--accent);
+    color: var(--ink);
+    text-align: right;
+  }
+  .chat-message.bot {
+    background: white;
+    border: 1px solid var(--border);
+  }
+  .chat-input {
+    display: flex;
+    padding: 15px;
+    border-top: 1px solid var(--border);
+  }
+  .chat-input input {
+    flex: 1;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    padding: 10px;
+    outline: none;
+    font-size: 0.85rem;
+  }
+  .chat-input button {
+    background: var(--accent);
+    color: var(--ink);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-left: 10px;
+    cursor: pointer;
+    font-weight: 700;
+  }
+  .chat-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 80px;
+    height: 55px;
+    background: var(--accent);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    z-index: 1000;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ink);
+    text-align: center;
+    padding: 8px 10px;
+    line-height: 1.3;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    overflow: visible;
+  }
+  .toggle-character {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 85px;
+    height: 120px;
+    object-fit: contain;
+    pointer-events: none;
+  }
+  .chat-character {
+    position: absolute;
+    bottom: 40px;
+    right: 8px;
+    z-index: 10;
+    pointer-events: none;
+  }
+  .chat-character img {
+    width: 150px;
+    height: 200px;
+    object-fit: contain;
+  }
+  .chat-toggle::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    right: 18px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 12px solid var(--accent);
+  }
+  .chat-toggle:hover {
+    animation: chatPulse 0.6s ease-in-out infinite alternate;
+  }
+  @keyframes chatPulse {
+    from { transform: scale(1); box-shadow: 0 4px 20px rgba(0,0,0,0.15); }
+    to { transform: scale(1.08); box-shadow: 0 6px 28px rgba(245, 197, 24, 0.5); }
   }
 
   @media (max-width: 800px) {
-    .page { padding: 0 1rem 2rem; }
-    .intranet-nav { padding: 0 1rem; height: 60px; flex-wrap: wrap; font-size: 0.7rem; }
-    .intranet-nav a { font-size: 0.65rem; }
-    .page-header { margin: 1rem 0 0.75rem; }
-    .page-header h1 { font-size: 1rem; }
-    .page-header p { font-size: 0.75rem; }
-    .badge { font-size: 0.65rem; padding: 0.25rem 0.6rem; margin-right: 410px; margin-top: -2rem; margin-bottom: 0.75rem; }
-    .calc-grid { grid-template-columns: 1fr; margin-top: -0.5rem; }
+    body { padding: 1rem; }
+    .calc-grid { grid-template-columns: 1fr; }
     .form-grid { grid-template-columns: 1fr; }
-    .results-card { margin-top: 0 !important; }
-    .card-header { padding: 1rem 1.25rem 0.85rem; }
-    .card-header h2 { font-size: 0.95rem; }
-    .card-body { padding: 1.25rem; }
-    .intranet-sub img { display: none; }
-    .intranet-sub { height: 40px; padding: 0 1rem; }
   }
-
-/* Chatbot styles */
-.chat-widget {
-  overflow: visible; /* change from hidden to visible */
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 350px;
-  height: 500px;
-  background: white;
-  border-radius: 10px;
-  display: none;
-  flex-direction: column;
-  z-index: 1000;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.15), 0 0 18px rgba(245, 197, 24, 0.35);
-}
-.chat-header {
-  background: var(--ink);
-  color: white;
-  padding: 15px;
-  border-radius: 10px 10px 0 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.chat-header h3 { margin: 0; font-size: 16px; }
-.chat-close { cursor: pointer; font-size: 20px; }
-.chat-messages {
-  flex: 1;
-  padding: 15px;
-  overflow-y: auto;
-  background: var(--surface);
-}
-.chat-message {
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 8px;
-}
-.chat-message.user {
-  background: var(--accent);
-  color: var(--ink);
-  text-align: right;
-}
-.chat-message.bot {
-  background: white;
-  border: 1px solid var(--border);
-}
-.chat-input {
-  display: flex;
-  padding: 15px;
-  border-top: 1px solid var(--border);
-}
-.chat-input input {
-  flex: 1;
-  border: 1px solid var(--border);
-  border-radius: 5px;
-  padding: 10px;
-  outline: none;
-}
-.chat-input button {
-  background: var(--accent);
-  color: var(--ink);
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  margin-left: 10px;
-  cursor: pointer;
-}
-.chat-toggle {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 80px;
-  height: 55px;
-  background: var(--accent);
-  border-radius: 10px;
-  display: flex;
-  flex-direction: column;  /* add this */
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-  z-index: 1000;
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--ink);
-  text-align: center;
-  padding: 8px 10px;
-  box-sizing: border-box;
-  line-height: 1.3;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  overflow: visible;  /* important so image isn't clipped */
-}
-
-.toggle-character {
-  position: absolute;
-  bottom: 40px;   /* sits just above the toggle button */
-  left: 50%;
-  transform: translateX(-50%);  /* centres it horizontally */
-  width: 85px;
-  height: 120px;
-  object-fit: contain;
-  pointer-events: none;
-}
-/* Bessie below chat messages */
-.chat-character {
-  position: absolute;
-  bottom: 40px; /* sits just above the input bar */
-  right: 8px;
-  z-index: 10;
-  pointer-events: none; /* so it doesn't block clicking */
-}
-
-.chat-character img {
-  width: 150px;
-  height: 200px;
-  object-fit: contain;
-  object-position: center
-}
-
-/* Speech bubble tail */
-.chat-toggle::after {
-  content: '';
-  position: absolute;
-  bottom: -10px;
-  right: 18px;
-  width: 0;
-  height: 0;
-  border-left: 8px solid transparent;
-  border-right: 4px solid transparent;
-  border-top: 12px solid var(--accent);
-}
-
-/* Pulse on hover */
-.chat-toggle:hover {
-  animation: chatPulse 0.6s ease-in-out infinite alternate;
-}
-
-@keyframes chatPulse {
-  from {
-    transform: scale(1);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-  }
-  to {
-    transform: scale(1.08);
-    box-shadow: 0 6px 28px rgba(245, 197, 24, 0.5);
-  }
-}
-
 </style>
 </head>
 <body>
-
-<!-- Intranet nav chrome -->
-<nav class="intranet-nav">
-  <div class="logo">
-    <img src="https://github.com/LouisLlewellyn/Images/blob/main/GKN_Aero_white.png?raw=true" alt="Logo" style="height:28px; vertical-align:middle; margin-right:8px;">
-    | Filton Intranet
-  </div>
-  <a href="#">Home</a>
-  <a href="#">News</a>
-  <a href="#">People</a>
-  <a href="#">AeroBi</a>
-  <a href="#" class="active">Business Tools</a>
-  <a href="#">IT Help</a>
-</nav>
-<div class="intranet-sub">
-  <span class="breadcrumb">Business Tools › <span>Benefits Calculator</span></span>
-  <img src="https://github.com/GKNOpEx/Pictures/blob/main/OpEx%20Logo%20Blue.png?raw=true" alt="OpEx Logo" style="height: 36px; margin-left: auto; margin-right: -15px;">
-</div>
-
-<!-- Page -->
-<div class="page">
-  <div class="page-header">
-    <h1>Benefits Calculator</h1>
-    <div style="display: flex; align-items: center; justify-content: space-between;">
-      <p>Calculate your project's benefit to the business</p>
-    </div>
-  </div>
 
   <span class="badge">2025/26 Rates</span>
 
@@ -603,10 +408,8 @@
         </div>
       </div>
       <div class="card-body">
-
         <div class="form-grid">
 
-          <!-- Attended Hours -->
           <div class="form-group">
             <label>Attended Hours Saved</label>
             <div class="input-prefix">
@@ -615,7 +418,6 @@
             </div>
           </div>
 
-          <!-- Earned Hours -->
           <div class="form-group">
             <label>Earned Hours Gained</label>
             <div class="input-prefix">
@@ -653,12 +455,11 @@
           </div>
           <input type="range" id="pension" min="3" max="15" value="5" step="1" oninput="updatePension(); calculate()">
         </div>
-
       </div>
     </div>
 
     <!-- Results -->
-    <div class="card results-card">
+    <div class="card">
       <div class="card-header">
         <div class="card-icon">📊</div>
         <div>
@@ -667,7 +468,6 @@
         </div>
       </div>
       <div class="card-body">
-
         <div class="result-total">
           <div class="result-total-label">Total Project Value</div>
           <div class="result-total-amount" id="bannerTotal">£0</div>
@@ -690,12 +490,33 @@
         </div>
 
         <p class="disclaimer">Figures are indicative estimates. Speak to your project lead for exact valuations.</p>
-
       </div>
     </div>
 
   </div>
-</div>
+
+  <!-- Chatbot -->
+  <div class="chat-toggle" onclick="toggleChat()">
+    <img src="https://github.com/GKNOpEx/Misc/blob/main/Bessie.png?raw=true" alt="Bessie" class="toggle-character" />
+    <span style="font-size: 1.5em;">Bessie</span>
+    <span style="font-size: 0.85em;">GKN Chatbot</span>
+  </div>
+  <div class="chat-widget" id="chatWidget">
+    <div class="chat-header">
+      <h3>GKN Ai Assistant - Bessie</h3>
+      <span class="chat-close" onclick="toggleChat()">×</span>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-message bot">Hello! How can I help you today?</div>
+    </div>
+    <div class="chat-character">
+      <img src="https://github.com/GKNOpEx/Misc/blob/main/Bessie.png?raw=true" alt="Bessie" />
+    </div>
+    <div class="chat-input">
+      <input type="text" id="chatInput" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
 
 <script>
   function fmt(n) {
@@ -714,12 +535,9 @@
     const rate     = parseInt(document.getElementById('pension').value) / 100;
     const years    = parseInt(document.getElementById('years').value);
 
-    // Rate multiplier based on duration
     const durationMultiplier = years >= 6 ? 1.3 : years >= 3 ? 1.15 : 1.0;
-
-    // Simple total calculation — adjust formula to match your real logic
-    const maxHours = 5000; // your baseline — adjust to match your max input value
-    const attendedSaving = maxHours - attended; // fewer hours = bigger saving
+    const maxHours = 5000;
+    const attendedSaving = maxHours - attended;
     const totalHours = attendedSaving + earned;
     const hourlyRate = 35;
     const total = totalHours * hourlyRate * (1 + rate) * durationMultiplier;
@@ -730,109 +548,63 @@
     document.getElementById('rateOut').textContent = (rate * 100) + '%';
   }
 
+  function toggleChat() {
+    const widget = document.getElementById('chatWidget');
+    const toggle = document.querySelector('.chat-toggle');
+    if (widget.style.display === 'flex') {
+      widget.style.display = 'none';
+      toggle.style.display = 'flex';
+    } else {
+      widget.style.display = 'flex';
+      toggle.style.display = 'none';
+    }
+  }
+
+  function handleKeyPress(event) {
+    if (event.key === 'Enter') sendMessage();
+  }
+
+  async function sendMessage() {
+    const input = document.getElementById('chatInput');
+    const message = input.value.trim();
+    if (!message) return;
+
+    addMessage(message, 'user');
+    input.value = '';
+
+    const typing = addMessage('Typing...', 'bot');
+    typing.id = 'typing';
+
+    try {
+      const response = await fetch('http://localhost:11434/api/generate', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ model: 'llama2', prompt: message, stream: false })
+      });
+
+      if (!response.ok) throw new Error('Network response was not ok');
+
+      const data = await response.json();
+      document.getElementById('typing').remove();
+      addMessage(data.response, 'bot');
+    } catch (error) {
+      document.getElementById('typing').remove();
+      addMessage('Sorry, I couldn\'t connect to the chatbot. Please try again later.', 'bot');
+    }
+  }
+
+  function addMessage(text, sender) {
+    const messages = document.getElementById('chatMessages');
+    const div = document.createElement('div');
+    div.className = `chat-message ${sender}`;
+    div.textContent = text;
+    messages.appendChild(div);
+    messages.scrollTop = messages.scrollHeight;
+    return div;
+  }
+
   calculate();
 </script>
 
-<!-- Chatbot HTML -->
-<div class="chat-toggle" onclick="toggleChat()">
-  <img src="https://github.com/GKNOpEx/Misc/blob/main/Bessie.png?raw=true" alt="Bessie" class="toggle-character" />
-  <span style="font-size: 1.5em;">Bessie</span>
-  <span style="font-size: 0.85em;">GKN Chatbot</span>
-</div>
-<div class="chat-widget" id="chatWidget">
-  <div class="chat-header">
-    <h3>GKN Ai Assistant - Bessie</h3>
-    <span class="chat-close" onclick="toggleChat()">×</span>
-  </div>
-  <div class="chat-messages" id="chatMessages">
-    <div class="chat-message bot">Hello! How can I help you today?</div>
-  </div>
-
-  <!-- Character image -->
-  <div class="chat-character">
-    <img src="https://github.com/GKNOpEx/Misc/blob/main/Bessie.png?raw=true" alt="Bessie" />
-  </div>
-
-  <div class="chat-input">
-    <input type="text" id="chatInput" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
-    <button onclick="sendMessage()">Send</button>
-  </div>
-</div>
-
 </body>
 </html>
-
-<script>
-function toggleChat() {
-  const widget = document.getElementById('chatWidget');
-  const toggle = document.querySelector('.chat-toggle');
-  if (widget.style.display === 'flex') {
-    widget.style.display = 'none';
-    toggle.style.display = 'flex';
-  } else {
-    widget.style.display = 'flex';
-    toggle.style.display = 'none';
-  }
-}
-
-function handleKeyPress(event) {
-  if (event.key === 'Enter') {
-    sendMessage();
-  }
-}
-
-async function sendMessage() {
-  const input = document.getElementById('chatInput');
-  const message = input.value.trim();
-  if (!message) return;
-
-  // Add user message
-  addMessage(message, 'user');
-  input.value = '';
-
-  // Show typing indicator
-  const typing = addMessage('Typing...', 'bot');
-  typing.id = 'typing';
-
-  try {
-    const response = await fetch('http://localhost:11434/api/generate', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        model: 'llama2', // Change to your model
-        prompt: message,
-        stream: false
-      })
-    });
-
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-
-    const data = await response.json();
-    const botMessage = data.response;
-
-    // Remove typing
-    document.getElementById('typing').remove();
-
-    // Add bot response
-    addMessage(botMessage, 'bot');
-  } catch (error) {
-    document.getElementById('typing').remove();
-    addMessage('Sorry, I couldn\'t connect to the chatbot. Please try again later.', 'bot');
-    console.error('Error:', error);
-  }
-}
-
-function addMessage(text, sender) {
-  const messages = document.getElementById('chatMessages');
-  const messageDiv = document.createElement('div');
-  messageDiv.className = `chat-message ${sender}`;
-  messageDiv.textContent = text;
-  messages.appendChild(messageDiv);
-  messages.scrollTop = messages.scrollHeight;
-  return messageDiv;
-}
-</script>
